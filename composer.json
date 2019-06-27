@@ -2,14 +2,14 @@
   "name": "art-alex-m/dw.coder",
   "description": "DW.Senior.Тестовое задание",
   "keywords": [],
-  "homepage": "",
+  "homepage": "https://github.com/art-alex-m/dw.coder/",
   "type": "project",
   "license": "BSD-3-Clause",
   "support": {
     "issues": "https://github.com/art-alex-m/dw.coder/issues",
-    "forum": "",
-    "wiki": "",
-    "irc": "",
+    "forum": "https://github.com/art-alex-m/dw.coder/issues",
+    "wiki": "https://github.com/art-alex-m/dw.coder/issues",
+    "irc": "https://github.com/art-alex-m/dw.coder/issues",
     "source": "https://github.com/art-alex-m/dw.coder"
   },
   "minimum-stability": "dev",

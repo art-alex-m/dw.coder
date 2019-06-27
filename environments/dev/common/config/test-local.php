@@ -2,7 +2,7 @@
 return [
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced_test',
+            'dsn' => 'pgsql:host=db;dbname=yii2advanced_test',
         ],
     ],
 ];
