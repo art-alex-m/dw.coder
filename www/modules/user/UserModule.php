@@ -18,5 +18,5 @@ use yii\base\Module;
  */
 class UserModule extends Module
 {
-
+    public $defaultRoute = 'videos/index';
 }

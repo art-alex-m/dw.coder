@@ -61,13 +61,15 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $homeUrl = ['/user/'];
+
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect($homeUrl);
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect($homeUrl);
         } else {
             $model->password = '';
 

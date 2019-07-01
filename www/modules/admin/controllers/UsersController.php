@@ -13,6 +13,7 @@ use common\models\SignupForm;
 use common\models\User;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 /**
@@ -52,5 +53,20 @@ class UsersController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'create' => ['post'],
+                ],
+            ],
+        ];
     }
 }
