@@ -7,6 +7,7 @@ use yii\base\Model;
 
 /**
  * ContactForm is the model behind the contact form.
+ * @deprecated
  */
 class ContactForm extends Model
 {

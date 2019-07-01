@@ -8,6 +8,7 @@ use common\models\User;
 
 /**
  * Password reset form
+ * @deprecated
  */
 class ResetPasswordForm extends Model
 {
