@@ -42,3 +42,5 @@ phpunit.phar
 /www/web/index.php
 /www/web/index-test.php
 /www/web/robots.txt
+
+/www/web/upload/*
