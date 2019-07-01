@@ -1,11 +1,16 @@
 <?php
+/**
+ * signup.php
+ *
+ * Created by PhpStorm.
+ * @date 01.07.19
+ * @time 11:08
+ *
+ * @var \yii\web\View $this
+ * @var \common\models\SignupForm $model
+ */
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-
-/* @var $model \www\models\SignupForm */
-
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Signup';
@@ -27,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'password')->passwordInput() ?>
 
             <div class="form-group">
+                <?= Html::a('Cancel', ['users/index'], ['class' => 'btn btn-default']) ?>
                 <?= Html::submitButton('Signup',
                     ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>

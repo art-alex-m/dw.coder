@@ -101,6 +101,16 @@ a.desc:after {
     border: none;
 }
 
+.grid-view div.summary,
+.grid-view table {
+    margin-top: 15px;
+}
+
+.grid-view div.summary + table,
+.grid-view div.grid-items table {
+    margin-top: 0;
+}
+
 @media (max-width: 767px) {
     .nav li > form > button.logout {
         display: block;

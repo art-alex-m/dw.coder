@@ -8,9 +8,18 @@ $params = array_merge(
 
 return [
     'id' => 'app-www',
+    'name' => 'Public application',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'www\controllers',
+    'modules' => [
+        'admin' => [
+            'class' => '\www\modules\admin\AdminModule',
+        ],
+        'user' => [
+            'class' => '\www\modules\user\UserModule',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-www',
@@ -39,9 +48,9 @@ return [
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
         */
     ],

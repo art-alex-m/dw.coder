@@ -6,6 +6,11 @@ use common\models\User;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
+/**
+ * Class VerifyEmailForm
+ * @package www\models
+ * @deprecated
+ */
 class VerifyEmailForm extends Model
 {
     /**
