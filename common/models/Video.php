@@ -9,10 +9,11 @@
 
 namespace common\models;
 
-use Yii;
+use common\components\DeleteFileBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * Class Video
@@ -26,6 +27,7 @@ use yii\filters\VerbFilter;
  * @property integer $created_at Время создания файла
  * @property int $user_id Идентификатор пользователя
  * @property string $title Имя файла
+ * @property-read string $uri Путь для скачивания файла
  */
 class Video extends ActiveRecord
 {
@@ -56,6 +58,7 @@ class Video extends ActiveRecord
                     'create' => ['post'],
                 ],
             ],
+            DeleteFileBehavior::class,
         ];
     }
 
@@ -76,6 +79,15 @@ class Video extends ActiveRecord
                 'filter' => ['=', 'status', User::STATUS_ACTIVE],
             ],
         ];
+    }
+
+    /**
+     * Получение пути для скачивания файла
+     * @return string
+     */
+    public function getUri()
+    {
+        return implode('/', [Yii::$app->params['downloadUri'], $this->path]);
     }
 
     /**
