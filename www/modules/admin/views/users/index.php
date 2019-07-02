@@ -15,18 +15,16 @@
 use yii\bootstrap\Html;
 use yii\grid\GridView;
 
-$this->title = 'Users list';
+$this->title = Yii::t('app', 'Users list');
 $this->params['breadcrumbs'][] = $this->title;
 
-echo Html::tag('h1', 'Users list');
+echo Html::tag('h1', $this->title);
 
-echo Html::beginForm(['users/signup'], 'post');
-echo Html::submitButton(Html::icon('plus') . ' Add', [
+echo Html::a(Html::icon('plus') . ' ' . Yii::t('app', 'Add'), ['users/signup'], [
+    'data-method' => 'post',
+    'data-params' => ['user-create' => 1],
     'class' => 'btn btn-success',
-    'name' => 'user-create',
-    'value' => 1,
 ]);
-echo Html::endForm();
 
 echo GridView::widget([
     'dataProvider' => $provider,

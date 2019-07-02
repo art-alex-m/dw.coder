@@ -9,6 +9,7 @@
 
 namespace www\models;
 
+use common\components\ImplodePathTrait;
 use common\models\Video;
 use Yii;
 use yii\base\Model;
@@ -21,6 +22,8 @@ use yii\web\UploadedFile;
  */
 class UploadVideoForm extends Model
 {
+    use ImplodePathTrait;
+
     /** @var UploadedFile */
     public $file;
 
@@ -77,8 +80,11 @@ class UploadVideoForm extends Model
      */
     protected function getFileName()
     {
-        return strtolower(Yii::$app->security->generateRandomString(16)
-            . '.' . $this->file->extension);
+        $name = strtolower(Yii::$app->security->generateRandomString(16));
+        $name = strtr($name, '-_', '58');
+        $name .= '.' . strtolower($this->file->extension);
+
+        return $name;
     }
 
     /**
@@ -103,24 +109,5 @@ class UploadVideoForm extends Model
     {
         return $this->implodePath(DIRECTORY_SEPARATOR,
             [Yii::$app->params['uploadDir'], $this->getPath(), $fileName]);
-    }
-
-    /**
-     * Собирает путь для сохранения файла
-     * @param string $separator
-     * @param array $chunks
-     * @return string
-     */
-    protected function implodePath($separator, $chunks)
-    {
-        $tmp = [];
-        foreach ($chunks as $item) {
-            if (is_array($item)) {
-                $tmp[] = implode($separator, $item);
-            } else {
-                $tmp[] = $item;
-            }
-        }
-        return implode($separator, $tmp);
     }
 }

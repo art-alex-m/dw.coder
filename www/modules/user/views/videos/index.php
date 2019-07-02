@@ -16,15 +16,13 @@ use yii\grid\GridView;
 $this->title = 'My videos';
 $this->params['breadcrumbs'][] = $this->title;
 
-echo Html::tag('h1', 'My videos');
+echo Html::tag('h1', $this->title);
 
-echo Html::beginForm(['videos/create'], 'post');
-echo Html::submitButton(Html::icon('plus') . ' Add', [
+echo Html::a(Html::icon('plus') . ' ' . Yii::t('app', 'Add'), ['videos/create'], [
+    'data-method' => 'post',
+    'data-params' => ['video-create' => 1],
     'class' => 'btn btn-success',
-    'name' => 'video-create',
-    'value' => 1,
 ]);
-echo Html::endForm();
 
 echo GridView::widget([
     'dataProvider' => $provider,
@@ -34,7 +32,12 @@ echo GridView::widget([
             'headerOptions' => ['width' => '5%'],
         ],
         'title',
-        'is_moderated',
+        [
+            'attribute' => 'is_moderated',
+            'value' => function ($item) {
+                return Yii::t('app', $item->is_moderated ? 'True' : 'False');
+            },
+        ],
         [
             'attribute' => 'created_at',
             'format' => ['date', 'dd MMMM Y HH:mm:ss'],
