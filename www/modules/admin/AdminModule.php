@@ -14,7 +14,7 @@ use yii\base\Module;
 /**
  * Class AdminModule
  * Модуль панели администратора
- * @package admin\modules\webpages
+ * @package www\modules\admin
  */
 class AdminModule extends Module
 {

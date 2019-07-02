@@ -19,6 +19,9 @@ return [
         'user' => [
             'class' => '\www\modules\user\UserModule',
         ],
+        'api' => [
+            'class' => '\www\modules\api\ApiModule',
+        ],
     ],
     'components' => [
         'request' => [
