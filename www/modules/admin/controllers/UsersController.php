@@ -9,10 +9,12 @@
 
 namespace www\modules\admin\controllers;
 
+use common\models\Rbac;
 use common\models\SignupForm;
 use common\models\User;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
@@ -65,6 +67,15 @@ class UsersController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::PERMISSION_ADMIN],
+                    ],
                 ],
             ],
         ];

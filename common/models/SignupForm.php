@@ -68,7 +68,14 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->status = User::STATUS_ACTIVE;
-        return $user->save();
+        $res = $user->save();
 
+        if ($res) {
+            $auth = \Yii::$app->authManager;
+            $role = $auth->getRole(Rbac::ROLE_USER);
+            $auth->assign($role, $user->id);
+        }
+
+        return $res;
     }
 }

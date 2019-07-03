@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use www\assets\AppAsset;
 use common\widgets\Alert;
+use common\models\Rbac;
 
 AppAsset::register($this);
 ?>
@@ -35,13 +36,19 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Users', 'url' => ['/admin/users']],
-        ['label' => 'Videos', 'url' => ['/user/videos']],
-        ['label' => 'Videos', 'url' => ['/admin/videos']],
-    ];
+    $menuItems = [];
+
+    if (Yii::$app->user->can(Rbac::PERMISSION_ADMIN)) {
+        $menuItems[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/admin/users']];
+        $menuItems[] = ['label' => Yii::t('app', 'Videos'), 'url' => ['/admin/videos']];
+    }
+
+    if (Yii::$app->user->can(Rbac::PERMISSION_USER)) {
+        $menuItems[] = ['label' => Yii::t('app', 'Videos'), 'url' => ['/user/videos']];
+    }
+
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')

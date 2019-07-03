@@ -9,8 +9,10 @@
 
 namespace www\modules\admin\controllers;
 
+use common\models\Rbac;
 use common\models\Video;
 use www\modules\admin\models\VideoSearch;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use Yii;
@@ -106,6 +108,15 @@ class VideosController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                     'moderate' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::PERMISSION_ADMIN],
+                    ],
                 ],
             ],
         ];

@@ -9,10 +9,12 @@
 
 namespace www\modules\user\controllers;
 
+use common\models\Rbac;
 use www\models\UploadVideoForm;
 use Yii;
 use common\models\Video;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
@@ -47,6 +49,15 @@ class VideosController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::PERMISSION_USER],
+                    ],
                 ],
             ],
         ];
