@@ -2,6 +2,7 @@
 
 namespace www\controllers;
 
+use common\models\Rbac;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -64,11 +65,17 @@ class SiteController extends Controller
         $homeUrl = ['/user/'];
 
         if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->can(Rbac::PERMISSION_ADMIN)) {
+                $homeUrl = ['/admin/'];
+            }
             return $this->redirect($homeUrl);
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (Yii::$app->user->can(Rbac::PERMISSION_ADMIN)) {
+                $homeUrl = ['/admin/'];
+            }
             return $this->redirect($homeUrl);
         } else {
             $model->password = '';
