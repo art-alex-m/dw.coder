@@ -9,8 +9,12 @@ $params = array_merge(
 return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
-    'controllerNamespace' => 'console\controllers',
+    'bootstrap' => [
+        'log',
+        'loadQueue',
+        'coderQueue',
+    ],
+    'controllerNamespace' => 'coder\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -22,9 +26,20 @@ return [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'info'],
+                    'maxFileSize' => 5120,
                 ],
             ],
+        ],
+        'loadQueue' => [
+            'class' => \yii\queue\file\Queue::class,
+            'as log' => \yii\queue\LogBehavior::class,
+            'path' => '@runtime/load-queue',
+        ],
+        'coderQueue' => [
+            'class' => \yii\queue\file\Queue::class,
+            'as log' => \yii\queue\LogBehavior::class,
+            'path' => '@runtime/coder-queue',
         ],
     ],
     'params' => $params,

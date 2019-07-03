@@ -13,6 +13,9 @@ use www\modules\api\components\Pagination;
 use www\modules\api\models\Video;
 use yii\data\ActiveDataProvider;
 use yii\rest\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\UnprocessableEntityHttpException;
+use Yii;
 
 /**
  * Class VideosController
@@ -41,12 +44,38 @@ class VideosController extends Controller
     }
 
     /**
+     * Отмечает, что видео файл был получен обработчиком
+     * @param int $id
+     * @return array
+     * @throws NotFoundHttpException
+     * @throws UnprocessableEntityHttpException
+     */
+    public function actionDownloaded($id)
+    {
+        $model = Video::findOne($id);
+        if (!$model instanceof Video) {
+            $msg = 'Video not found by id #{0}';
+            throw new NotFoundHttpException(Yii::t('app', $msg, $id));
+        } else {
+            if ($model->is_moderated) {
+                $model->is_sent = true;
+                $model->save();
+            } else {
+                throw new UnprocessableEntityHttpException(
+                    Yii::t('app', 'Video #{0} should be moderated first', $id));
+            }
+        }
+        return ['saved' => true];
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function verbs()
     {
         return [
             'for-decode' => ['get', 'options'],
+            'downloaded' => ['put'],
         ];
     }
 }
