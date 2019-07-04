@@ -21,6 +21,7 @@ services:
       - ./:/app
     depends_on:
       - db
+      - www
 
   db:
     image: postgres:9.5
