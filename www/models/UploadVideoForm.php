@@ -11,6 +11,7 @@ namespace www\models;
 
 use common\components\ImplodePathTrait;
 use common\models\Video;
+use www\components\UploadTimeLimitValidator;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
@@ -35,6 +36,7 @@ class UploadVideoForm extends Model
         return [
             ['file', 'required'],
             ['file', 'file'],
+            ['file', UploadTimeLimitValidator::class],
         ];
     }
 
