@@ -14,7 +14,7 @@ namespace coder\components;
  * Идентифицирует что очередь еще имеет задания
  * @package coder\components
  */
-class FullQueueException extends \Exception
+class QueueIsFullException extends \Exception
 {
 
 }

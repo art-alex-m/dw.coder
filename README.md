@@ -1,6 +1,17 @@
+# Запуск проекта на Docker
+1. выполнить из консоли `docker-compose up --build -d`
+2. дождаться сборки контейнеров
+3. `docker ps` узнать имя контейнера www. Допустим `dwcoder_www_1`
+3. выполнить из консоли `docker exec -it dwcoder_www_1 /app/init-project.sh`
+
+
 Логин администратора: admin
 
 Пароль администратора: admin1
+
+Доступ к публичному приложению: http://localhost:20080
+
+Rest апи запрос доступен через: http://localhost:20080/index.php?r=api/videos/for-decode
 
 
 DIRECTORY STRUCTURE
@@ -19,9 +30,9 @@ console
     models/              contains console-specific model classes
     runtime/             contains files generated during runtime
 coder
-    config/              contains frontend configurations
+    config/              contains backend configurations
     controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
+    models/              contains backend-specific model classes
     runtime/             contains files generated during runtime
     tests/               contains tests for frontend application
     web/                 contains the entry script and Web resources

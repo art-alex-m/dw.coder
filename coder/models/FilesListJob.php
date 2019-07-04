@@ -10,7 +10,7 @@
 namespace coder\models;
 
 use coder\components\BuildUrlTrait;
-use coder\components\FullQueueException;
+use coder\components\QueueIsFullException;
 use coder\components\QueueInfo;
 use yii\base\BaseObject;
 use yii\queue\RetryableJobInterface;
@@ -37,7 +37,7 @@ class FilesListJob extends BaseObject implements RetryableJobInterface
     {
         $info = new QueueInfo(['queue' => $queue]);
         if (!$info->isEmpty) {
-            throw new FullQueueException();
+            throw new QueueIsFullException();
         }
 
         $urlStr = $this->buildUrl(Yii::$app->params['getVideosUrl'], [
@@ -61,7 +61,7 @@ class FilesListJob extends BaseObject implements RetryableJobInterface
      */
     public function canRetry($attempt, $error)
     {
-        return $error instanceof FullQueueException;
+        return $error instanceof QueueIsFullException;
     }
 
     /**
