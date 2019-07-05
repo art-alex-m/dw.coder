@@ -12,6 +12,7 @@ namespace www\modules\api\controllers;
 use www\modules\api\components\Pagination;
 use www\modules\api\models\Video;
 use yii\data\ActiveDataProvider;
+use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UnprocessableEntityHttpException;
@@ -45,6 +46,7 @@ class VideosController extends Controller
 
     /**
      * Отмечает, что видео файл был получен обработчиком
+     *
      * @param int $id
      * @return array
      * @throws NotFoundHttpException
@@ -66,6 +68,19 @@ class VideosController extends Controller
             }
         }
         return ['saved' => true];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            'authenticator' => [
+                'class' => HttpBearerAuth::class,
+                'only' => ['downloaded']
+            ],
+        ]);
     }
 
     /**

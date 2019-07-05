@@ -8,4 +8,5 @@ return [
         'http://www/index.php',
         'r' => 'api/videos/downloaded'
     ],
+    'adminAuthToken' => '1234567890',
 ];

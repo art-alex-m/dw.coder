@@ -49,6 +49,7 @@ class DownloadJob extends BaseObject implements JobInterface
             $context = stream_context_create([
                 'http' => [
                     'method' => 'put',
+                    'header' => 'Authorization: Bearer ' . Yii::$app->params['adminAuthToken'],
                 ]
             ]);
             file_get_contents($url, false, $context);
